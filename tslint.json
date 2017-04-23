@@ -1,0 +1,13 @@
+{
+    "extends": "tslint:latest",
+    "rules": {
+        "no-console": false,
+        "object-literal-sort-keys": false,
+        "only-arrow-functions": false,
+        "ban-types": false,
+        "forin": false,
+        "no-angle-bracket-type-assertion": false,
+        "whitespace": false,
+        "interface-name": false
+    }
+}

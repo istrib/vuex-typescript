@@ -1,0 +1,42 @@
+{
+  "name": "careplanning-server",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/server.js",
+  "typings": "dist/server.d.ts",
+  "author": "AHC",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "@types/chai-http": "^0.0.30",
+    "@types/mocha": "^2.2.40",
+    "@types/vue": "^2.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "rimraf": "^2.6.1",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "get-params": "^0.1.2",
+    "vue": "^2.2.6",
+    "vuex": "^2.2.1"
+  },
+  "scripts": {
+    "clean": "rimraf dist && rimraf coverage",
+    "lint-force": "tslint --force --format verbose \"src/**/*.ts\"",
+    "lint": "tslint --format verbose \"src/**/*.ts\"",
+    "compile": "echo Using TypeScript && tsc --version && tsc --pretty",
+    "compile-watch": "npm run compile -- --watch",
+    "build": "npm run clean && npm run lint-force && npm run compile",
+    "build-watch": "npm run clean && npm run lint-force && npm run compile-watch",
+    "test": "mocha --recursive dist/**/*.spec.js",
+    "test-watch": "npm run test -- --watch",
+    "test-debug": "mocha --debug-brk --debug=0.0.0.0:5858 dist/**/*.spec.js",
+    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test"
+  }
+}
