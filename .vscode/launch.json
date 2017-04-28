@@ -22,8 +22,6 @@
             "outFiles": ["${workspaceRoot}\\dist\\**\\*.js"],
             "restart": true,
             //"trace": "sm",
-            "localRoot": "${workspaceRoot}",
-            "remoteRoot": "/home/app/server"
         }
     ]
 }

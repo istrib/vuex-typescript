@@ -11,5 +11,5 @@ export interface ProductInBasket {
 
 export interface BasketState {
     items: ProductInBasket[];
-    totalPrice: number;
+    totalAmount: number;
 }
