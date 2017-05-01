@@ -2,9 +2,9 @@ import { expect } from "chai";
 import * as Vue from "vue";
 import * as Vuex from "vuex";
 import { createStore, State } from "./store";
-import * as basket from "./store/basket";
+import * as api from "./store";
 
-describe("Given store with modules", () => {
+describe("Given store without modules exposing mutations", () => {
     let store: Vuex.Store<State>;
 
     beforeEach(() => {
@@ -21,9 +21,9 @@ describe("Given store with modules", () => {
         });
     });
 
-    describe("when parameterless mutation is made in a module using function built with makeCommit function", () => {
+    describe("when parameterless mutation is made using function built with makeCommit function", () => {
         beforeEach(() => {
-            basket.commitReset1(store, {});
+            api.commitReset1(store, {});
         });
 
         it("mutates state of the module and not state of other modules", () => {
@@ -39,10 +39,10 @@ describe("Given store with modules", () => {
         });
     });
 
-    describe("when parameterless mutation is made in a module using function built "
+    describe("when parameterless mutation is made using function built "
         + "with makeCommitNoPayload function", () => {
         beforeEach(() => {
-            basket.commitReset2(store);
+            api.commitReset2(store);
         });
 
         it("mutates state of the module and not state of other modules", () => {
@@ -58,9 +58,9 @@ describe("Given store with modules", () => {
         });
     });
 
-    describe("when mutation with object as payload is made in a module", () => {
+    describe("when mutation with object as payload is made", () => {
         beforeEach(() => {
-            basket.commitAppendItem(store, { product: { id: 2, name: "chair", unitPrice: 20 }, atTheEnd: true });
+            api.commitAppendItem(store, { product: { id: 2, name: "chair", unitPrice: 20 }, atTheEnd: true });
         });
 
         it("mutates state of the module and not state of other modules", () => {
@@ -79,9 +79,9 @@ describe("Given store with modules", () => {
         });
     });
 
-    describe("when mutation with value as payload is made in a module", () => {
+    describe("when mutation with value as payload is made", () => {
         beforeEach(() => {
-            basket.commitSetTotalAmount(store, 45);
+            api.commitSetTotalAmount(store, 45);
         });
 
         it("mutates state of the module and not state of other modules", () => {

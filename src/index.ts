@@ -4,7 +4,7 @@ import { Action, ActionContext, ActionTree, Commit, CommitOptions,
     Dispatch, DispatchOptions, Getter, GetterTree, install, ModuleTree as VuexModuleTree, Mutation, MutationTree,
     Payload, Plugin, Store } from "vuex";
 
-const userRootNamespace = { root: true };
+const useRootNamespace = { root: true };
 
 export function handler(target: any, key: string) {
     target[key]._vuexKey = key;
@@ -29,6 +29,8 @@ export type GetIssuer<TModuleState, TRootState, TResult> =
 export type DispatchIssuer<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
     payload: TPayload) => Promise<any[]>;
+export type PayloadlessDispatchIssuer<TModuleState, TRootState> =
+    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<any[]>;
 
 export type CommitIssuer<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
@@ -44,6 +46,9 @@ export interface FunctionMakers<TModuleState, TRootState> {
 
     makeDispatch<TPayload>(
         handler: ActionHandler<TModuleState, TRootState, TPayload>): DispatchIssuer<TModuleState, TRootState, TPayload>;
+    makeDispatchNoPayload(
+        handler: PayloadlessActionHandler<TModuleState, TRootState>):
+        PayloadlessDispatchIssuer<TModuleState, TRootState>;
 
     makeGet<TResult>(
         handler: GetterHandler<TModuleState, TRootState, TResult>): GetIssuer<TModuleState, TRootState, TResult>;
@@ -59,6 +64,8 @@ export function getExportsMakers<TModuleState, TRootState>(
 
             makeDispatch: <TPayload>(handler: ActionHandler<TModuleState, TRootState, TPayload>) =>
                 makeDispatch(handler, namespace),
+            makeDispatchNoPayload: (handler: PayloadlessActionHandler<TModuleState, TRootState>) =>
+                makeDispatchNoPayload(handler, namespace),
             makeGet: <TResult>(handler: GetterHandler<TModuleState, TRootState, TResult>) =>
                 makeGet(handler, namespace),
         };
@@ -68,8 +75,10 @@ function makeGet<TModuleState, TRootState, TResult>(
     handler: GetterHandler<TModuleState, TRootState, TResult>,
     namespace: string): GetIssuer<TModuleState, TRootState, TResult> {
         const key = qualifyKey(handler, namespace);
-        return (store) => {
-            return <TResult>store.getters[key];
+        return (store: any) => {
+            return store.rootGetters
+                ? <TResult>store.rootGetters[key] // ActionContext
+                : <TResult>store.getters[key]; // Store
         };
     }
 
@@ -78,7 +87,16 @@ function makeDispatch<TModuleState, TRootState, TPayload>(
     namespace: string): DispatchIssuer<TModuleState, TRootState, TPayload> {
         const key = qualifyKey(handler, namespace);
         return (store, payload) => {
-            return store.dispatch(key, payload, userRootNamespace);
+            return store.dispatch(key, payload, useRootNamespace);
+        };
+}
+
+function makeDispatchNoPayload<TModuleState, TRootState>(
+    handler: PayloadlessActionHandler<TModuleState, TRootState>,
+    namespace: string): PayloadlessDispatchIssuer<TModuleState, TRootState> {
+        const key = qualifyKey(handler, namespace);
+        return (store) => {
+            return store.dispatch(key, undefined, useRootNamespace);
         };
 }
 
@@ -87,7 +105,7 @@ function makeCommit<TModuleState, TRootState, TPayload>(
     namespace: string): CommitIssuer<TModuleState, TRootState, TPayload> {
         const key = qualifyKey(handler, namespace);
         return (store, payload) => {
-            store.commit(key, payload, userRootNamespace);
+            store.commit(key, payload, useRootNamespace);
         };
 }
 
@@ -96,7 +114,7 @@ function makeCommitNoPayload<TModuleState, TRootState>(
     namespace: string): PayloadlessCommitIssuer<TModuleState, TRootState> {
         const key = qualifyKey(handler, namespace);
         return (store) => {
-            store.commit(key);
+            store.commit(key, undefined, useRootNamespace);
         };
 }
 

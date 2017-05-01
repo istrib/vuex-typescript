@@ -12,7 +12,10 @@
             "./node_modules/@types",
             "./typings"
         ],
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "lib": [
+            "es2015"
+        ]
     },
     "include": [
         "src"
