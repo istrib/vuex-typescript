@@ -2,7 +2,7 @@
 
 A simple way to get static code analysis, static typing and intellisense with Vuex library.
 
-![Intellisense in action when using a mutation](doc/Intellisense.png)
+![](doc/Intellisense.png)
 
 # Contributing
 
