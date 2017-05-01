@@ -19,11 +19,10 @@
     "nyc": "^10.1.2",
     "rimraf": "^2.6.1",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1"
+    "typescript": "^2.2.1",
+    "vue": "^2.3.0"
   },
   "dependencies": {
-    "get-params": "^0.1.2",
-    "vue": "^2.2.6",
     "vuex": "^2.2.1"
   },
   "scripts": {

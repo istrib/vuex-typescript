@@ -3,11 +3,17 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es5",
-        "noImplicitAny": true,
         "sourceMap": true,
         "outDir": "./dist",
         "removeComments": true,
+        "noImplicitAny": true,
         "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "typeRoots": [
             "./node_modules/@types",
             "./typings"

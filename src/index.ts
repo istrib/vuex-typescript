@@ -1,8 +1,4 @@
-import getParams from "get-params";
-import { WatchOptions } from "vue";
-import { Action, ActionContext, ActionTree, Commit, CommitOptions,
-    Dispatch, DispatchOptions, Getter, GetterTree, install, ModuleTree as VuexModuleTree, Mutation, MutationTree,
-    Payload, Plugin, Store } from "vuex";
+import { ActionContext, Store } from "vuex";
 
 const useRootNamespace = { root: true };
 

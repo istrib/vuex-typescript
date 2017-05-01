@@ -1,6 +1,6 @@
 import * as Vuex from "vuex";
 import { getExportsMakers } from "../../../";
-import { Product, ProductInBasket, State } from "./state";
+import { Product, State } from "./state";
 
 type Context = Vuex.ActionContext<State, State>;
 
@@ -54,7 +54,7 @@ const storeOptions = {
             const totalBeforeDiscount = readTotalAmountWithoutDiscount(context);
 
             // Imagine this is a server API call to compute the discounted value:
-            await new Promise((resolve, reject) => setTimeout(() => resolve(), 500));
+            await new Promise((resolve, _) => setTimeout(() => resolve(), 500));
             const totalAfterDiscount = totalBeforeDiscount * discount;
 
             commitSetTotalAmount(context, totalAfterDiscount);
@@ -62,7 +62,7 @@ const storeOptions = {
 
         async selectAvailableItems(context: Context): Promise<void> {
             // Imagine this is a server API call to figure out which items are available:
-            await new Promise((resolve, reject) => setTimeout(() => resolve(), 500));
+            await new Promise((resolve, _) => setTimeout(() => resolve(), 500));
 
             const availableProductNames = readProductNames(context);
             commitSelectProducts(context, availableProductNames);

@@ -40,7 +40,7 @@ describe("Given store with modules exposing getters", () => {
     describe("when getter having parameters is accessed in a module using function built with makeGet function", () => {
         let getterResult: basket.ProductInBasket[];
 
-        describe("and a value is passed in as argument", () =>{
+        describe("and a value is passed in as argument", () => {
             beforeEach(() => {
                 getterResult = basket.readItemsByStatus(store)(false);
             });
@@ -52,7 +52,7 @@ describe("Given store with modules exposing getters", () => {
             });
         });
 
-        describe("and another value is passed in as argument", () =>{
+        describe("and another value is passed in as argument", () => {
             beforeEach(() => {
                 getterResult = basket.readItemsByStatus(store)(true);
             });
