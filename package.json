@@ -1,14 +1,14 @@
 {
-  "name": "careplanning-server",
+  "name": "vuex-typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple way to get static code analysis, static typing and intellisense with Vuex library.",
   "files": [
-    "dist"
+    "dist/index.js"
   ],
-  "main": "dist/server.js",
-  "typings": "dist/server.d.ts",
-  "author": "AHC",
-  "license": "ISC",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "author": "istrib",
+  "license": "GPL",
   "devDependencies": {
     "@types/chai": "^3.4.35",
     "@types/chai-http": "^0.0.30",

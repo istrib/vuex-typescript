@@ -1,6 +1,6 @@
 import * as Vuex from "vuex";
 import { getExportsMakers } from "../../../";
-import { Product, State } from "./state";
+import { Product, ProductInBasket, State } from "./state";
 
 type Context = Vuex.ActionContext<State, State>;
 

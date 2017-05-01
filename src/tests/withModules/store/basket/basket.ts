@@ -1,7 +1,7 @@
-import { ActionContext } from "vuex";
+import { ActionContext, Store } from "vuex";
 import { getExportsMakers } from "../../../../";
 import { State as RootState } from "../state";
-import { BasketState, Product } from "./basketState";
+import { BasketState, Product, ProductInBasket } from "./basketState";
 
 type BasketContext = ActionContext<BasketState, RootState>;
 
