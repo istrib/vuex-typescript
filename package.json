@@ -1,6 +1,6 @@
 {
   "name": "vuex-typescript",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A simple way to get static code analysis, static typing and intellisense with Vuex library.",
   "files": [
     "dist/index.js"
