@@ -85,6 +85,17 @@ export const commitAppendItem = commit(basket.mutations.appendItem);
 
 ```
 
+And then in your Vue component:
+
+```js
+import * as basket from "./store/basket"; // Or better import specific accessor to be explicit about what you use
+...
+
+getterResult = basket.readProductNames(this.$store); // This returns Product[] 
+await dispatchUpdateTotalAmount(0.5); // This accepts number (discount) - you'd normally use an object as arguments
+commitAppendItem(newItem); // This will give compilation error if you don't pass { product: Product; atTheEnd: boolean } in
+```
+
 ## Functions or objects
 
 This lib is deliberately designed with functions rather than classes. This does not stop you from grouping accessors into objects. 
