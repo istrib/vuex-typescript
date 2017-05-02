@@ -92,8 +92,8 @@ import * as basket from "./store/basket"; // Or better import specific accessor 
 ...
 
 getterResult = basket.readProductNames(this.$store); // This returns Product[] 
-basket.dispatchUpdateTotalAmount(0.5); // This accepts number (discount) - you'd normally use an object as arguments. Returns promise.
-basket.commitAppendItem(newItem); // This will give compilation error if you don't pass { product: Product; atTheEnd: boolean } in
+basket.dispatchUpdateTotalAmount(this.$store, 0.5); // This accepts number (discount) - you'd normally use an object as arguments. Returns promise.
+basket.commitAppendItem(this.$store, newItem); // This will give compilation error if you don't pass { product: Product; atTheEnd: boolean } in
 ```
 
 ## Functions or objects
