@@ -4,7 +4,25 @@ A simple way to get static typing, static code analysis and intellisense with Vu
 
 ![](doc/Intellisense.png)
 
-Example (full working example available [here](src/tests/withModules/store/basket/basket.ts)):
+We get full end-to-end compile-time safety and code navigability:
+* No string literals or constants for action/mutation/getter names
+* No action/mutation/getter misuse by providing wrong payload type
+* Intellisense giving unambiguous hints on what type of payload or getter arguments is expected
+* Refactoring made easy
+* Supports vuex with and without modules (though use of modules and namespaces seems to produce better structured code).
+
+## The idea
+
+This library does not change the way how vuex handlers are defined (in particular it does not make you 
+to use classes (though it does not stop you, either).
+With this library you change the way how you *call* the store, once you have its instance: you **don’t use store’s 
+compile-time-unsafe methods** and you use **strongly typed *accessors*** instead. This approach is remotely similar to the pattern of 
+[Redux Action Creators](http://redux.js.org/docs/basics/Actions.html#action-creators), though much less boilerplate is needed thanks 
+to higher-order functions provided by this library which do the dull work.
+
+## Example 
+
+Full working example available [here](src/tests/withModules/store/basket/basket.ts). Excerpt:
 
 ```js
 import { ActionContext, Store } from "vuex";
@@ -63,6 +81,13 @@ export const dispatchUpdateTotalAmount = dispatch(basket.actions.updateTotalAmou
 export const commitAppendItem = commit(basket.mutations.appendItem);
 
 ```
+
+## Functions or objects
+
+This lib is deliberately designed with functions rather than classes. This does not stop you from grouping accessors into objects. 
+Note however that this makes little sense as the accessors are essentially loosely or not related to each other. 
+Importing and using functions rather than objects makes it explicit which accessor you actually use rather than 
+stating which accessor in an object you may be using.
 
 ## Contributing
 
