@@ -1,10 +1,10 @@
 # Vuex-Typescript
 
-A simple way to get static code analysis, static typing and intellisense with Vuex library.
+A simple way to get static typing, static code analysis and intellisense with Vuex library.
 
 ![](doc/Intellisense.png)
 
-# Contributing
+## Contributing
 
 ```
 npm run build
