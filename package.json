@@ -16,6 +16,7 @@
     "@types/mocha": "^2.2.40",
     "@types/vue": "^2.0.0",
     "chai": "^3.5.0",
+    "coveralls": "^2.13.1",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "rimraf": "^2.6.1",
@@ -34,11 +35,11 @@
     "compile-watch": "npm run compile -- --watch",
     "build": "npm run clean && npm run lint-force && npm run compile",
     "build-watch": "npm run clean && npm run lint-force && npm run compile-watch",
-    "test-only": "mocha --recursive dist/**/*.spec.js",
     "test": "npm run coverage",
+    "test-only": "mocha --recursive dist/**/*.spec.js",
     "test-watch": "npm run test-only -- --watch",
     "test-debug": "mocha --debug-brk --debug=0.0.0.0:5858 dist/**/*.spec.js",
-    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test-only"
-  },
-  "peerDependencies": {}
+    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test-only",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+  }
 }
