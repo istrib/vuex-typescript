@@ -4,7 +4,7 @@
   "description": "A simple way to get static typing, static code analysis and intellisense with Vuex library.",
   "files": [
     "dist/index.js",
-    "dist/index.d.ts"    
+    "dist/index.d.ts"
   ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,7 +23,9 @@
     "typescript": "^2.2.1",
     "vue": "^2.3.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vuex": "^2.3.1"
+  },
   "scripts": {
     "clean": "rimraf dist && rimraf coverage",
     "lint-force": "tslint --force --format verbose \"src/**/*.ts\"",
@@ -37,7 +39,5 @@
     "test-debug": "mocha --debug-brk --debug=0.0.0.0:5858 dist/**/*.spec.js",
     "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test"
   },
-  "peerDependencies": {
-    "vuex": "^2.3.1"
-  }
+  "peerDependencies": {}
 }
