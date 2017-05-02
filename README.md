@@ -4,7 +4,7 @@ A simple way to get static typing, static code analysis and intellisense with Vu
 
 ![](doc/Intellisense.png)
 
-Example:
+Example (full working example available [here](src/tests/withModules/store/basket/basket.ts)):
 
 ```js
 import { ActionContext, Store } from "vuex";
@@ -26,12 +26,14 @@ export const basket = {
         getProductNames(state: BasketState) {
             return state.items.map((item) => item.product.name);
         },
+		...
     },
 
     mutations: {
         appendItem(state: BasketState, item: { product: Product; atTheEnd: boolean }) {
             state.items.push({ product: item.product, isSelected: false });
         },
+		...
     },
 
     actions: {
@@ -40,12 +42,13 @@ export const basket = {
             const totalAfterDiscount = await callServer(totalBeforeDiscount, discount);
             commitSetTotalAmount(context, totalAfterDiscount);
         },
+		...
     },
 };
 
 // This is where the vuex-typescript specific stuff begins:
 //
-// We want to expose a static functions which will call get, dispatch or commit method
+// We want to expose static functions which will call get, dispatch or commit method
 // on a store instance taking correct type of payload (or getter signature).
 // Instead of writing these "store accessor" functions by hand, we use set of higher-order
 // functions provided by vuex-typescript. These functions will produce statically typed
