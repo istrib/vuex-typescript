@@ -19,57 +19,61 @@ export type PayloadlessActionHandler<TModuleState, TRootState> =
 export type GetterHandler<TModuleState, TRootState, TResult> =
     (state: TModuleState, rootState: TRootState) => TResult;
 
-export type GetIssuer<TModuleState, TRootState, TResult> =
+export type GetAccessor<TModuleState, TRootState, TResult> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => TResult;
 
-export type DispatchIssuer<TModuleState, TRootState, TPayload> =
+export type DispatchAccessor<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
     payload: TPayload) => Promise<any[]>;
-export type PayloadlessDispatchIssuer<TModuleState, TRootState> =
+export type PayloadlessDispatchAccessor<TModuleState, TRootState> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<any[]>;
 
-export type CommitIssuer<TModuleState, TRootState, TPayload> =
+export type CommitAccessor<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
     payload: TPayload) => void;
-export type PayloadlessCommitIssuer<TModuleState, TRootState> =
+export type PayloadlessCommitAccessor<TModuleState, TRootState> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => void;
 
-export interface FunctionMakers<TModuleState, TRootState> {
-    makeCommit<TPayload>(
-        handler: MutationHandler<TModuleState, TPayload>): CommitIssuer<TModuleState, TRootState, TPayload>;
-    makeCommitNoPayload(
-        handler: PayloadlessMutationHandler<TModuleState>): PayloadlessCommitIssuer<TModuleState, TRootState>;
+export interface StoreAccessors<TModuleState, TRootState> {
+    commit<TPayload>(
+        handler: MutationHandler<TModuleState, TPayload>):
+            CommitAccessor<TModuleState, TRootState, TPayload>;
+    commitNoPayload(
+        handler: PayloadlessMutationHandler<TModuleState>):
+            PayloadlessCommitAccessor<TModuleState, TRootState>;
 
-    makeDispatch<TPayload>(
-        handler: ActionHandler<TModuleState, TRootState, TPayload>): DispatchIssuer<TModuleState, TRootState, TPayload>;
-    makeDispatchNoPayload(
+    dispatch<TPayload>(
+        handler: ActionHandler<TModuleState, TRootState, TPayload>):
+            DispatchAccessor<TModuleState, TRootState, TPayload>;
+    dispatchNoPayload(
         handler: PayloadlessActionHandler<TModuleState, TRootState>):
-        PayloadlessDispatchIssuer<TModuleState, TRootState>;
+            PayloadlessDispatchAccessor<TModuleState, TRootState>;
 
-    makeGet<TResult>(
-        handler: GetterHandler<TModuleState, TRootState, TResult>): GetIssuer<TModuleState, TRootState, TResult>;
+    read<TResult>(
+        handler: GetterHandler<TModuleState, TRootState, TResult>):
+            GetAccessor<TModuleState, TRootState, TResult>;
 }
 
-export function getExportsMakers<TModuleState, TRootState>(
-    namespace: string): FunctionMakers<TModuleState, TRootState> {
+export function getStoreAccessors<TModuleState, TRootState>(
+    namespace: string): StoreAccessors<TModuleState, TRootState> {
         return {
-            makeCommit: <TPayload>(handler: MutationHandler<TModuleState, TPayload>) =>
-                makeCommit(handler, namespace),
-            makeCommitNoPayload: (handler: PayloadlessMutationHandler<TModuleState>) =>
-                makeCommitNoPayload(handler, namespace),
+            commit: <TPayload>(handler: MutationHandler<TModuleState, TPayload>) =>
+                commit(handler, namespace),
+            commitNoPayload: (handler: PayloadlessMutationHandler<TModuleState>) =>
+                commitNoPayload(handler, namespace),
 
-            makeDispatch: <TPayload>(handler: ActionHandler<TModuleState, TRootState, TPayload>) =>
-                makeDispatch(handler, namespace),
-            makeDispatchNoPayload: (handler: PayloadlessActionHandler<TModuleState, TRootState>) =>
-                makeDispatchNoPayload(handler, namespace),
-            makeGet: <TResult>(handler: GetterHandler<TModuleState, TRootState, TResult>) =>
-                makeGet(handler, namespace),
+            dispatch: <TPayload>(handler: ActionHandler<TModuleState, TRootState, TPayload>) =>
+                dispatch(handler, namespace),
+            dispatchNoPayload: (handler: PayloadlessActionHandler<TModuleState, TRootState>) =>
+                dispatchNoPayload(handler, namespace),
+            read: <TResult>(handler: GetterHandler<TModuleState, TRootState, TResult>) =>
+                read(handler, namespace),
         };
 }
 
-function makeGet<TModuleState, TRootState, TResult>(
+function read<TModuleState, TRootState, TResult>(
     handler: GetterHandler<TModuleState, TRootState, TResult>,
-    namespace: string): GetIssuer<TModuleState, TRootState, TResult> {
+    namespace: string): GetAccessor<TModuleState, TRootState, TResult> {
         const key = qualifyKey(handler, namespace);
         return (store: any) => {
             return store.rootGetters
@@ -78,36 +82,36 @@ function makeGet<TModuleState, TRootState, TResult>(
         };
     }
 
-function makeDispatch<TModuleState, TRootState, TPayload>(
+function dispatch<TModuleState, TRootState, TPayload>(
     handler: ActionHandler<TModuleState, TRootState, TPayload>,
-    namespace: string): DispatchIssuer<TModuleState, TRootState, TPayload> {
+    namespace: string): DispatchAccessor<TModuleState, TRootState, TPayload> {
         const key = qualifyKey(handler, namespace);
         return (store, payload) => {
             return store.dispatch(key, payload, useRootNamespace);
         };
 }
 
-function makeDispatchNoPayload<TModuleState, TRootState>(
+function dispatchNoPayload<TModuleState, TRootState>(
     handler: PayloadlessActionHandler<TModuleState, TRootState>,
-    namespace: string): PayloadlessDispatchIssuer<TModuleState, TRootState> {
+    namespace: string): PayloadlessDispatchAccessor<TModuleState, TRootState> {
         const key = qualifyKey(handler, namespace);
         return (store) => {
             return store.dispatch(key, undefined, useRootNamespace);
         };
 }
 
-function makeCommit<TModuleState, TRootState, TPayload>(
+function commit<TModuleState, TRootState, TPayload>(
     handler: MutationHandler<TModuleState, TPayload>,
-    namespace: string): CommitIssuer<TModuleState, TRootState, TPayload> {
+    namespace: string): CommitAccessor<TModuleState, TRootState, TPayload> {
         const key = qualifyKey(handler, namespace);
         return (store, payload) => {
             store.commit(key, payload, useRootNamespace);
         };
 }
 
-function makeCommitNoPayload<TModuleState, TRootState>(
+function commitNoPayload<TModuleState, TRootState>(
     handler: PayloadlessMutationHandler<TModuleState>,
-    namespace: string): PayloadlessCommitIssuer<TModuleState, TRootState> {
+    namespace: string): PayloadlessCommitAccessor<TModuleState, TRootState> {
         const key = qualifyKey(handler, namespace);
         return (store) => {
             store.commit(key, undefined, useRootNamespace);

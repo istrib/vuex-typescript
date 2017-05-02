@@ -1,5 +1,5 @@
 import { ActionContext, Store } from "vuex";
-import { getExportsMakers } from "../../../../";
+import { getStoreAccessors } from "../../../../";
 import { State as RootState } from "../state";
 import { BasketState, Product, ProductInBasket } from "./basketState";
 
@@ -74,31 +74,31 @@ export const basket = {
     },
 };
 
-const { makeCommit, makeCommitNoPayload, makeGet, makeDispatch, makeDispatchNoPayload } =
-     getExportsMakers<BasketState, RootState>("basket");
+const { commit, commitNoPayload, read, dispatch, dispatchNoPayload } =
+     getStoreAccessors<BasketState, RootState>("basket");
 
 const getters = basket.getters;
 
-export const readProductNames = makeGet(getters.getProductNames);
-export const readItemsByStatus = makeGet(getters.getItemsByStatus);
-export const readTotalAmountWithoutDiscount = makeGet(getters.getTotalAmountWithoutDiscount);
+export const readProductNames = read(getters.getProductNames);
+export const readItemsByStatus = read(getters.getItemsByStatus);
+export const readTotalAmountWithoutDiscount = read(getters.getTotalAmountWithoutDiscount);
 
 const actions = basket.actions;
 
-export const dispatchUpdateTotalAmount = makeDispatch(actions.updateTotalAmount);
+export const dispatchUpdateTotalAmount = dispatch(actions.updateTotalAmount);
 // Variant 1: simpler but yelding worse API:
-export const dispatchSelectAvailableItems = makeDispatch(actions.selectAvailableItems);
+export const dispatchSelectAvailableItems = dispatch(actions.selectAvailableItems);
 // Variant 2: a bit more complex but yelding better API:
-export const dispatchSelectAvailableItems2 = makeDispatchNoPayload(actions.selectAvailableItems);
+export const dispatchSelectAvailableItems2 = dispatchNoPayload(actions.selectAvailableItems);
 export const dispatchSelectAvailablieItemsAndUpdateTotalAmount =
-    makeDispatch(actions.SelectAvailablieItemsAndUpdateTotalAmount);
+    dispatch(actions.SelectAvailablieItemsAndUpdateTotalAmount);
 
 const mutations = basket.mutations;
 
 // Variant 1: simpler but yelding worse API:
-export const commitReset1 = makeCommit(mutations.reset);
+export const commitReset1 = commit(mutations.reset);
 // Variant 2: a bit more complex but yelding better API:
-export const commitReset2 = makeCommitNoPayload(mutations.reset);
-export const commitAppendItem = makeCommit(mutations.appendItem);
-export const commitSetTotalAmount = makeCommit(mutations.setTotalAmount);
-export const commitSelectProducts = makeCommit(mutations.selectProducts);
+export const commitReset2 = commitNoPayload(mutations.reset);
+export const commitAppendItem = commit(mutations.appendItem);
+export const commitSetTotalAmount = commit(mutations.setTotalAmount);
+export const commitSelectProducts = commit(mutations.selectProducts);

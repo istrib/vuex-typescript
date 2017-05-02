@@ -25,7 +25,7 @@ describe("Given store without modules exposing getters", () => {
         });
     });
 
-    describe("when parameterless getter is accessed using function built with makeGet function", () => {
+    describe("when parameterless getter is accessed using function built with read function", () => {
         let getterResult: string[];
 
         beforeEach(() => {
@@ -37,7 +37,7 @@ describe("Given store without modules exposing getters", () => {
         });
     });
 
-    describe("when getter having parameters is accessed using function built with makeGet function", () => {
+    describe("when getter having parameters is accessed using function built with read function", () => {
         let getterResult: ProductInBasket[];
 
         describe("and a value is passed in as argument", () => {

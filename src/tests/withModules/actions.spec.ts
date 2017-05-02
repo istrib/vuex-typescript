@@ -26,7 +26,7 @@ describe("Given store with modules exposing actions", () => {
     });
 
     describe("when parameterless action is dispatched in a module using function "
-        + "built with makeDispatch function", () => {
+        + "built with dispatch function", () => {
 
         beforeEach(async () => {
             await basket.dispatchSelectAvailableItems(store, {});
@@ -50,7 +50,7 @@ describe("Given store with modules exposing actions", () => {
     });
 
     describe("when parameterless action is dispatched in a module using function "
-        + "built with makeDispatchNoPayload function", () => {
+        + "built with dispatchNoPayload function", () => {
 
         beforeEach(async () => {
             await basket.dispatchSelectAvailableItems2(store);

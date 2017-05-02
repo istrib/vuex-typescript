@@ -21,7 +21,7 @@ describe("Given store with modules exposing mutations", () => {
         });
     });
 
-    describe("when parameterless mutation is made in a module using function built with makeCommit function", () => {
+    describe("when parameterless mutation is made in a module using function built with commit function", () => {
         beforeEach(() => {
             basket.commitReset1(store, {});
         });
@@ -40,7 +40,7 @@ describe("Given store with modules exposing mutations", () => {
     });
 
     describe("when parameterless mutation is made in a module using function built "
-        + "with makeCommitNoPayload function", () => {
+        + "with commitNoPayload function", () => {
         beforeEach(() => {
             basket.commitReset2(store);
         });

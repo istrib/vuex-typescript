@@ -21,7 +21,7 @@ describe("Given store without modules exposing mutations", () => {
         });
     });
 
-    describe("when parameterless mutation is made using function built with makeCommit function", () => {
+    describe("when parameterless mutation is made using function built with commit function", () => {
         beforeEach(() => {
             api.commitReset1(store, {});
         });
@@ -40,7 +40,7 @@ describe("Given store without modules exposing mutations", () => {
     });
 
     describe("when parameterless mutation is made using function built "
-        + "with makeCommitNoPayload function", () => {
+        + "with commitNoPayload function", () => {
         beforeEach(() => {
             api.commitReset2(store);
         });
