@@ -3,5 +3,3 @@ node_js:
   - "7"
 before_script:
   - yarn run build
-after_script:
-  - yarn run coverage
