@@ -1,4 +1,4 @@
-# Vuex-Typescript
+# Vuex-Typescript [![Build Status](https://travis-ci.org/istrib/vuex-typescript.svg?branch=master)](https://travis-ci.org/istrib/vuex-typescript)
 
 A simple way to get static typing, static code analysis and intellisense with Vuex library.
 
