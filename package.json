@@ -34,10 +34,11 @@
     "compile-watch": "npm run compile -- --watch",
     "build": "npm run clean && npm run lint-force && npm run compile",
     "build-watch": "npm run clean && npm run lint-force && npm run compile-watch",
-    "test": "mocha --recursive dist/**/*.spec.js",
-    "test-watch": "npm run test -- --watch",
+    "test-only": "mocha --recursive dist/**/*.spec.js",
+    "test": "npm run coverage",
+    "test-watch": "npm run test-only -- --watch",
     "test-debug": "mocha --debug-brk --debug=0.0.0.0:5858 dist/**/*.spec.js",
-    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test"
+    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test-only"
   },
   "peerDependencies": {}
 }
