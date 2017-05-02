@@ -14,10 +14,10 @@ We get full end-to-end compile-time safety and code navigability:
 ## The idea
 
 This library does not change the way how vuex handlers are defined (in particular it does not make you 
-to use classes (though it does not stop you, either).
+use classes (though it does not stop you, either).
 
-With this library you change the way how you *call* the store, once you have its instance: you **don’t use store’s 
-compile-time-unsafe methods** and you use **strongly typed *accessors*** instead. This approach is remotely similar to the pattern of 
+The library changes the way how you *call* the store, once you have its instance: you **don’t use store’s 
+compile-time-unsafe methods** but you use **strongly typed *accessors*** instead. This approach is remotely similar to the pattern of 
 [Redux Action Creators](http://redux.js.org/docs/basics/Actions.html#action-creators), though much less boilerplate is needed thanks 
 to higher-order functions provided by this library which do the dull work.
 
