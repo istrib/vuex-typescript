@@ -39,7 +39,7 @@
     "test-only": "mocha --recursive dist/**/*.spec.js",
     "test-watch": "npm run test-only -- --watch",
     "test-debug": "mocha --debug-brk --debug=0.0.0.0:5858 dist/**/*.spec.js",
-    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text -x **/*.spec.js npm run test-only",
+    "coverage": "rimraf coverage && nyc --reporter=html --reporter=text --reporter=lcov -x **/*.spec.js npm run test-only",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   }
 }
