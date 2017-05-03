@@ -2,7 +2,7 @@ import { ActionContext, Store } from "vuex";
 
 const useRootNamespace = { root: true };
 
-export function handler(target: any, key: string) {
+export function Handler(target: any, key: string) {
     target[key]._vuexKey = key;
 }
 
@@ -123,7 +123,7 @@ function qualifyKey(handler: Function, namespace?: string) {
     if (!key) {
         throw new Error("Vuex handler functions must not be anonymous. "
             + "Vuex needs a key by which it identifies a handler. "
-            + "If you define handler as class member you must decorate it with @handler.");
+            + "If you define handler as class member you must decorate it with @Handler.");
     }
     return namespace
         ? `${namespace}/${key}`

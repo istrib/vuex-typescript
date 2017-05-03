@@ -103,6 +103,9 @@ Note however that this makes little sense as the accessors are loosely or not re
 Importing and using functions rather than objects makes it explicit which accessor you actually use rather than 
 stating which accessor in an object you may be using.
 
+If you wish to define your vuex handlers as class members then you must decorate these methods with `@Handler`
+decorator exported from this library as shown in [this test](src/tests/withModules/store/system/system.ts).
+
 ## Contributing
 
 ```
