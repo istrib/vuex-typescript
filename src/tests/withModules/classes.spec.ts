@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as Vue from "vue";
 import * as Vuex from "vuex";
-import { getStoreAccessors, StoreAccessors } from "../../../";
+import { getStoreAccessors, StoreAccessors } from "../../";
 import { createStore, State } from "./store";
 import * as system from "./store/system";
 
