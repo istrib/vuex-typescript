@@ -1,6 +1,9 @@
 # Vuex-Typescript [![Build Status](https://travis-ci.org/istrib/vuex-typescript.svg?branch=master)](https://travis-ci.org/istrib/vuex-typescript) [![Coverage Status](https://coveralls.io/repos/github/istrib/vuex-typescript/badge.svg?branch=master)](https://coveralls.io/github/istrib/vuex-typescript?branch=master) [![npm version](https://badge.fury.io/js/vuex-typescript.svg)](https://badge.fury.io/js/vuex-typescript)
 
+[https://github.com/istrib/vuex-typescript/](https://github.com/istrib/vuex-typescript/)
+
 A simple way to get static typing, static code analysis and intellisense with Vuex library.
+
 
 ![](doc/Intellisense.png)
 
@@ -23,7 +26,7 @@ to higher-order functions provided by this library which do the dull work.
 
 ## Example 
 
-Full working example available [here](src/tests/withModules/store/basket/basket.ts). Excerpt:
+Full working example available [here](https://github.com/istrib/vuex-typescript/tree/master/src/tests/withModules/store/basket/basket.ts). Excerpt:
 
 ```js
 import { ActionContext, Store } from "vuex";
@@ -104,7 +107,7 @@ Importing and using functions rather than objects makes it explicit which access
 stating which accessor in an object you may be using.
 
 If you wish to define your vuex handlers as class members then you must decorate these methods with `@Handler`
-decorator exported from this library as shown in [this test](src/tests/withModules/store/system/system.ts).
+decorator exported from this library as shown in [this test](https://github.com/istrib/vuex-typescript/tree/master/src/tests/withModules/store/system/system.ts).
 
 ## Contributing
 
