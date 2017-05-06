@@ -14,7 +14,6 @@ class WrongSystemModuleHandlers {
 describe("Given mutations defined as class members", () => {
     let store: Vuex.Store<State>;
 
-
     beforeEach(() => {
         Vue.use(Vuex);
         store = createStore();
