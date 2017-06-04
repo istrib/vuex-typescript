@@ -13,8 +13,12 @@ export type PayloadlessMutationHandler<TModuleState> =
 
 export type ActionHandler<TModuleState, TRootState, TPayload> =
     (injectee: ActionContext<TModuleState, TRootState>, payload: TPayload) => void | Promise<any>;
+export type PromiseActionHandler<TModuleState, TRootState, TPayload, TPromise> =
+    (injectee: ActionContext<TModuleState, TRootState>, payload: TPayload) => Promise<TPromise>;
 export type PayloadlessActionHandler<TModuleState, TRootState> =
     (injectee: ActionContext<TModuleState, TRootState>) => void | Promise<any>;
+export type PromisePayloadlessActionHandler<TModuleState, TRootState, TPromise> =
+    (injectee: ActionContext<TModuleState, TRootState>) => Promise<TPromise>;
 
 export type GetterHandler<TModuleState, TRootState, TResult> =
     (state: TModuleState, rootState: TRootState) => TResult;
@@ -27,6 +31,11 @@ export type DispatchAccessor<TModuleState, TRootState, TPayload> =
     payload: TPayload) => Promise<any[]>;
 export type PayloadlessDispatchAccessor<TModuleState, TRootState> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<any[]>;
+export type PromiseDispatchAccessor<TModuleState, TRootState, TPayload, TPromise> =
+    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
+    payload: TPayload) => Promise<TPromise>;
+export type PromisePayloadlessDispatchAccessor<TModuleState, TRootState, TPromise> =
+    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<TPromise>;
 
 export type CommitAccessor<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
@@ -42,12 +51,18 @@ export interface StoreAccessors<TModuleState, TRootState> {
         handler: PayloadlessMutationHandler<TModuleState>):
             PayloadlessCommitAccessor<TModuleState, TRootState>;
 
+    dispatch<TPayload, TPromise>(
+        handler: PromiseActionHandler<TModuleState, TRootState, TPayload, TPromise>):
+            PromiseDispatchAccessor<TModuleState, TRootState, TPayload, TPromise>;
     dispatch<TPayload>(
         handler: ActionHandler<TModuleState, TRootState, TPayload>):
             DispatchAccessor<TModuleState, TRootState, TPayload>;
     dispatchNoPayload(
         handler: PayloadlessActionHandler<TModuleState, TRootState>):
             PayloadlessDispatchAccessor<TModuleState, TRootState>;
+    dispatchNoPayload<TPromise>(
+        handler: PromisePayloadlessActionHandler<TModuleState, TRootState, TPromise>):
+            PromisePayloadlessDispatchAccessor<TModuleState, TRootState, TPromise>;
 
     read<TResult>(
         handler: GetterHandler<TModuleState, TRootState, TResult>):
