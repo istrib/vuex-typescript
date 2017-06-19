@@ -49,7 +49,7 @@ export const basket = {
     },
 
     actions: {
-        async updateTotalAmount(context: BasketContext, discount: number): Promise<void> {
+        async updateTotalAmount(context: BasketContext, discount: number): Promise<number> {
             const totalBeforeDiscount = readTotalAmountWithoutDiscount(context);
 
             // Imagine this is a server API call to compute the discounted value:
@@ -57,6 +57,8 @@ export const basket = {
             const totalAfterDiscount = totalBeforeDiscount * discount;
 
             commitSetTotalAmount(context, totalAfterDiscount);
+
+            return totalAfterDiscount;
         },
 
         async selectAvailableItems(context: BasketContext): Promise<void> {

@@ -95,6 +95,18 @@ describe("Given store without modules exposing actions", () => {
         });
     });
 
+    describe("when action returning promise which resolves to non-void value is dispatched", () => {
+        let actualResult: number;
+
+        beforeEach(async () => {
+            actualResult = await api.dispatchUpdateTotalAmount(store, 0.5);
+        });
+
+        it("returns promise which resolves to the same value", () => {
+            expect(actualResult).to.equal(40);
+        });
+    });
+
     describe("when action which delegates work to other actions is dispatched ", () => {
         beforeEach(async () => {
             await api.dispatchSelectAvailablieItemsAndUpdateTotalAmount(store, 0.5);

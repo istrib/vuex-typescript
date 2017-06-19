@@ -50,7 +50,7 @@ const storeOptions = {
     },
 
     actions: {
-        async updateTotalAmount(context: Context, discount: number): Promise<void> {
+        async updateTotalAmount(context: Context, discount: number): Promise<number> {
             const totalBeforeDiscount = readTotalAmountWithoutDiscount(context);
 
             // Imagine this is a server API call to compute the discounted value:
@@ -58,6 +58,8 @@ const storeOptions = {
             const totalAfterDiscount = totalBeforeDiscount * discount;
 
             commitSetTotalAmount(context, totalAfterDiscount);
+
+            return totalAfterDiscount;
         },
 
         async selectAvailableItems(context: Context): Promise<void> {

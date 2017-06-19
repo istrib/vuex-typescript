@@ -95,6 +95,18 @@ describe("Given store with modules exposing actions", () => {
         });
     });
 
+    describe("when action returning promise which resolves to non-void value is dispatched in a module", () => {
+        let actualResult: number;
+
+        beforeEach(async () => {
+            actualResult = await basket.dispatchUpdateTotalAmount(store, 0.5);
+        });
+
+        it("returns promise which resolves to the same value", () => {
+            expect(actualResult).to.equal(40);
+        });
+    });
+
     describe("when action which delegates work to other actions is dispatched in a module ", () => {
         beforeEach(async () => {
             await basket.dispatchSelectAvailablieItemsAndUpdateTotalAmount(store, 0.5);

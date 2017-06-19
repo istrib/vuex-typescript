@@ -11,14 +11,10 @@ export type MutationHandler<TModuleState, TPayload> =
 export type PayloadlessMutationHandler<TModuleState> =
     (state: TModuleState) => void;
 
-export type ActionHandler<TModuleState, TRootState, TPayload> =
-    (injectee: ActionContext<TModuleState, TRootState>, payload: TPayload) => void | Promise<any>;
-export type PromiseActionHandler<TModuleState, TRootState, TPayload, TPromise> =
-    (injectee: ActionContext<TModuleState, TRootState>, payload: TPayload) => Promise<TPromise>;
-export type PayloadlessActionHandler<TModuleState, TRootState> =
-    (injectee: ActionContext<TModuleState, TRootState>) => void | Promise<any>;
-export type PromisePayloadlessActionHandler<TModuleState, TRootState, TPromise> =
-    (injectee: ActionContext<TModuleState, TRootState>) => Promise<TPromise>;
+export type ActionHandler<TModuleState, TRootState, TPayload, TResult> =
+    (injectee: ActionContext<TModuleState, TRootState>, payload: TPayload) => void | Promise<TResult>;
+export type PayloadlessActionHandler<TModuleState, TRootState, TResult> =
+    (injectee: ActionContext<TModuleState, TRootState>) => void | Promise<TResult>;
 
 export type GetterHandler<TModuleState, TRootState, TResult> =
     (state: TModuleState, rootState: TRootState) => TResult;
@@ -26,16 +22,11 @@ export type GetterHandler<TModuleState, TRootState, TResult> =
 export type GetAccessor<TModuleState, TRootState, TResult> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => TResult;
 
-export type DispatchAccessor<TModuleState, TRootState, TPayload> =
+export type DispatchAccessor<TModuleState, TRootState, TPayload, TResult> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
-    payload: TPayload) => Promise<any[]>;
-export type PayloadlessDispatchAccessor<TModuleState, TRootState> =
-    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<any[]>;
-export type PromiseDispatchAccessor<TModuleState, TRootState, TPayload, TPromise> =
-    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
-    payload: TPayload) => Promise<TPromise>;
-export type PromisePayloadlessDispatchAccessor<TModuleState, TRootState, TPromise> =
-    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<TPromise>;
+    payload: TPayload) => Promise<TResult>;
+export type PayloadlessDispatchAccessor<TModuleState, TRootState, TResult> =
+    (store: Store<TRootState> | ActionContext<TModuleState, TRootState>) => Promise<TResult>;
 
 export type CommitAccessor<TModuleState, TRootState, TPayload> =
     (store: Store<TRootState> | ActionContext<TModuleState, TRootState>,
@@ -51,18 +42,12 @@ export interface StoreAccessors<TModuleState, TRootState> {
         handler: PayloadlessMutationHandler<TModuleState>):
             PayloadlessCommitAccessor<TModuleState, TRootState>;
 
-    dispatch<TPayload, TPromise>(
-        handler: PromiseActionHandler<TModuleState, TRootState, TPayload, TPromise>):
-            PromiseDispatchAccessor<TModuleState, TRootState, TPayload, TPromise>;
-    dispatch<TPayload>(
-        handler: ActionHandler<TModuleState, TRootState, TPayload>):
-            DispatchAccessor<TModuleState, TRootState, TPayload>;
-    dispatchNoPayload(
-        handler: PayloadlessActionHandler<TModuleState, TRootState>):
-            PayloadlessDispatchAccessor<TModuleState, TRootState>;
-    dispatchNoPayload<TPromise>(
-        handler: PromisePayloadlessActionHandler<TModuleState, TRootState, TPromise>):
-            PromisePayloadlessDispatchAccessor<TModuleState, TRootState, TPromise>;
+    dispatch<TPayload, TResult>(
+        handler: ActionHandler<TModuleState, TRootState, TPayload, TResult>):
+            DispatchAccessor<TModuleState, TRootState, TPayload, TResult>;
+    dispatchNoPayload<TResult>(
+        handler: PayloadlessActionHandler<TModuleState, TRootState, TResult>):
+            PayloadlessDispatchAccessor<TModuleState, TRootState, TResult>;
 
     read<TResult>(
         handler: GetterHandler<TModuleState, TRootState, TResult>):
@@ -77,9 +62,9 @@ export function getStoreAccessors<TModuleState, TRootState>(
             commitNoPayload: (handler: PayloadlessMutationHandler<TModuleState>) =>
                 commitNoPayload(handler, namespace),
 
-            dispatch: <TPayload>(handler: ActionHandler<TModuleState, TRootState, TPayload>) =>
+            dispatch: <TPayload, TResult>(handler: ActionHandler<TModuleState, TRootState, TPayload, TResult>) =>
                 dispatch(handler, namespace),
-            dispatchNoPayload: (handler: PayloadlessActionHandler<TModuleState, TRootState>) =>
+            dispatchNoPayload: <TResult>(handler: PayloadlessActionHandler<TModuleState, TRootState, TResult>) =>
                 dispatchNoPayload(handler, namespace),
             read: <TResult>(handler: GetterHandler<TModuleState, TRootState, TResult>) =>
                 read(handler, namespace),
@@ -97,21 +82,21 @@ function read<TModuleState, TRootState, TResult>(
         };
     }
 
-function dispatch<TModuleState, TRootState, TPayload>(
-    handler: ActionHandler<TModuleState, TRootState, TPayload>,
-    namespace: string): DispatchAccessor<TModuleState, TRootState, TPayload> {
+function dispatch<TModuleState, TRootState, TPayload, TResult>(
+    handler: ActionHandler<TModuleState, TRootState, TPayload, TResult>,
+    namespace: string): DispatchAccessor<TModuleState, TRootState, TPayload, TResult> {
         const key = qualifyKey(handler, namespace);
         return (store, payload) => {
-            return store.dispatch(key, payload, useRootNamespace);
+            return <any>store.dispatch(key, payload, useRootNamespace);
         };
 }
 
-function dispatchNoPayload<TModuleState, TRootState>(
-    handler: PayloadlessActionHandler<TModuleState, TRootState>,
-    namespace: string): PayloadlessDispatchAccessor<TModuleState, TRootState> {
+function dispatchNoPayload<TModuleState, TRootState, TResult>(
+    handler: PayloadlessActionHandler<TModuleState, TRootState, TResult>,
+    namespace: string): PayloadlessDispatchAccessor<TModuleState, TRootState, TResult> {
         const key = qualifyKey(handler, namespace);
         return (store) => {
-            return store.dispatch(key, undefined, useRootNamespace);
+            return <any>store.dispatch(key, undefined, useRootNamespace);
         };
 }
 
