@@ -109,6 +109,10 @@ stating which accessor in an object you may be using.
 If you wish to define your vuex handlers as class members then you must decorate these methods with `@Handler`
 decorator exported from this library as shown in [this test](https://github.com/istrib/vuex-typescript/tree/master/src/tests/withModules/store/system/system.ts).
 
+## More
+
+https://github.com/mrcrowl/vuex-typex also uses higher-order functions but takes a few steps more: there the store is implicitly built while defining accessors for each handler (in contrast here we create store with standard Vuex options and then wrap handlers into accessors). It is also not required to pass $store as argument to accessors. Definitely worth checking out.
+
 ## Contributing
 
 ```
