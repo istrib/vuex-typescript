@@ -29,31 +29,7 @@ describe("Given store with modules exposing actions", () => {
         + "built with dispatch function", () => {
 
         beforeEach(async () => {
-            await basket.dispatchSelectAvailableItems(store, {});
-        });
-
-        it("mutates state of the module via mutations invoked within the action", () => {
-            expect(store.state).to.deep.equal({
-                system: {
-                    userLogin: "abc",
-                },
-                basket: {
-                    items: [
-                        { product: { id: 1, name: "clock", unitPrice: 50 }, isSelected: true },
-                        { product: { id: 2, name: "newspaper", unitPrice: 20 }, isSelected: true },
-                        { product: { id: 3, name: "candy", unitPrice: 10 }, isSelected: true },
-                    ],
-                    totalAmount: 80,
-                },
-            });
-        });
-    });
-
-    describe("when parameterless action is dispatched in a module using function "
-        + "built with dispatchNoPayload function", () => {
-
-        beforeEach(async () => {
-            await basket.dispatchSelectAvailableItems2(store);
+            await basket.dispatchSelectAvailableItems(store);
         });
 
         it("mutates state of the module via mutations invoked within the action", () => {

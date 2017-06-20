@@ -70,13 +70,13 @@ export const basket = {
         },
 
         async SelectAvailablieItemsAndUpdateTotalAmount(context: BasketContext, discount: number): Promise<void> {
-            await dispatchSelectAvailableItems2(context);
+            await dispatchSelectAvailableItems(context);
             await dispatchUpdateTotalAmount(context, discount);
         },
     },
 };
 
-const { commit, commitNoPayload, read, dispatch, dispatchNoPayload } =
+const { commit, read, dispatch } =
      getStoreAccessors<BasketState, RootState>("basket");
 
 const getters = basket.getters;
@@ -88,19 +88,13 @@ export const readTotalAmountWithoutDiscount = read(getters.getTotalAmountWithout
 const actions = basket.actions;
 
 export const dispatchUpdateTotalAmount = dispatch(actions.updateTotalAmount);
-// Variant 1: simpler but yelding worse API:
 export const dispatchSelectAvailableItems = dispatch(actions.selectAvailableItems);
-// Variant 2: a bit more complex but yelding better API:
-export const dispatchSelectAvailableItems2 = dispatchNoPayload(actions.selectAvailableItems);
 export const dispatchSelectAvailablieItemsAndUpdateTotalAmount =
     dispatch(actions.SelectAvailablieItemsAndUpdateTotalAmount);
 
 const mutations = basket.mutations;
 
-// Variant 1: simpler but yelding worse API:
-export const commitReset1 = commit(mutations.reset);
-// Variant 2: a bit more complex but yelding better API:
-export const commitReset2 = commitNoPayload(mutations.reset);
+export const commitReset = commit(mutations.reset);
 export const commitAppendItem = commit(mutations.appendItem);
 export const commitSetTotalAmount = commit(mutations.setTotalAmount);
 export const commitSelectProducts = commit(mutations.selectProducts);

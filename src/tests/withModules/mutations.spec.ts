@@ -23,26 +23,7 @@ describe("Given store with modules exposing mutations", () => {
 
     describe("when parameterless mutation is made in a module using function built with commit function", () => {
         beforeEach(() => {
-            basket.commitReset1(store, {});
-        });
-
-        it("mutates state of the module and not state of other modules", () => {
-            expect(store.state).to.deep.equal({
-                system: {
-                    userLogin: "abc",
-                },
-                basket: {
-                    items: [],
-                    totalAmount: 0,
-                },
-            });
-        });
-    });
-
-    describe("when parameterless mutation is made in a module using function built "
-        + "with commitNoPayload function", () => {
-        beforeEach(() => {
-            basket.commitReset2(store);
+            basket.commitReset(store);
         });
 
         it("mutates state of the module and not state of other modules", () => {

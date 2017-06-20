@@ -7,7 +7,7 @@
         "outDir": "./dist",
         "experimentalDecorators": true,
         "declaration": true,
-        "removeComments": true,
+        "removeComments": false,
         "noImplicitAny": true,
         "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,

@@ -71,7 +71,7 @@ const storeOptions = {
         },
 
         async SelectAvailablieItemsAndUpdateTotalAmount(context: Context, discount: number): Promise<void> {
-            await dispatchSelectAvailableItems2(context);
+            await dispatchSelectAvailableItems(context);
             await dispatchUpdateTotalAmount(context, discount);
         },
     },
@@ -79,7 +79,7 @@ const storeOptions = {
 
 export const createStore = () => new Vuex.Store<State>(storeOptions);
 
-const { commit, commitNoPayload, read, dispatch, dispatchNoPayload } =
+const { commit, read, dispatch } =
      getStoreAccessors<State, State>("");
 
 const getters = storeOptions.getters;
@@ -91,19 +91,13 @@ export const readTotalAmountWithoutDiscount = read(getters.getTotalAmountWithout
 const actions = storeOptions.actions;
 
 export const dispatchUpdateTotalAmount = dispatch(actions.updateTotalAmount);
-// Variant 1: simpler but yelding worse API:
 export const dispatchSelectAvailableItems = dispatch(actions.selectAvailableItems);
-// Variant 2: a bit more complex but yelding better API:
-export const dispatchSelectAvailableItems2 = dispatchNoPayload(actions.selectAvailableItems);
 export const dispatchSelectAvailablieItemsAndUpdateTotalAmount =
     dispatch(actions.SelectAvailablieItemsAndUpdateTotalAmount);
 
 const mutations = storeOptions.mutations;
 
-// Variant 1: simpler but yelding worse API:
-export const commitReset1 = commit(mutations.reset);
-// Variant 2: a bit more complex but yelding better API:
-export const commitReset2 = commitNoPayload(mutations.reset);
+export const commitReset = commit(mutations.reset);
 export const commitAppendItem = commit(mutations.appendItem);
 export const commitSetTotalAmount = commit(mutations.setTotalAmount);
 export const commitSelectProducts = commit(mutations.selectProducts);
