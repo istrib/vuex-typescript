@@ -14,18 +14,15 @@
     "@types/chai": "^3.4.35",
     "@types/chai-http": "^0.0.30",
     "@types/mocha": "^2.2.40",
-    "@types/vue": "^2.0.0",
     "chai": "^3.5.0",
     "coveralls": "^2.13.1",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "rimraf": "^2.6.1",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1",
-    "vue": "^2.3.0"
-  },
-  "dependencies": {
-    "vuex": "^2.3.1"
+    "typescript": "^2.5.0",
+    "vue": "^2.5.2",
+    "vuex": "^3.0.0"
   },
   "scripts": {
     "clean": "rimraf dist && rimraf coverage",
