@@ -101,8 +101,9 @@ basket.commitAppendItem(this.$store, newItem); // This will give compilation err
 
 ## Vuex version compatibility
 
-For Vuex 2.* use newest vuex-typescript 2.*
-For Vuex 3.* use newest vuex-typescript 3.*
+For **Vuex 2.x** use newest **vuex-typescript 2.x**
+
+For **Vuex 3.x** use newest **vuex-typescript 3.x**
 
 This library has explicit dependency on Vuex.
 A new version of vuex-typescript is released following each major release of Vuex. This way breaking API changes introduced into Vuex are guaranteed to be followed up and tested in vuex-typescript. 
