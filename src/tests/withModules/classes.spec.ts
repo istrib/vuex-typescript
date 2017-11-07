@@ -1,9 +1,10 @@
 import { expect } from "chai";
-import * as Vue from "vue";
 import * as Vuex from "vuex";
 import { getStoreAccessors, StoreAccessors } from "../../";
 import { createStore, State } from "./store";
 import * as system from "./store/system";
+
+const Vue = require("vue");
 
 class WrongSystemModuleHandlers {
     public setUserLoginUndecorated(state: system.SystemState, login: string) {
