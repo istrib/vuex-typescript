@@ -1,6 +1,6 @@
 {
   "name": "vuex-typescript",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A simple way to get static typing, static code analysis and intellisense with Vuex library.",
   "files": [
     "dist/index.js",
@@ -21,10 +21,11 @@
     "rimraf": "^2.6.1",
     "tslint": "^4.5.1",
     "typescript": "^2.6.1",
-    "vue": "^2.5.3"
-  },
-  "dependencies": {
+    "vue": "^2.5.3",
     "vuex": "^3.0.1"
+  },
+  "peerDependencies": {
+    "vuex": "3.x"
   },
   "scripts": {
     "clean": "rimraf dist && rimraf coverage",
