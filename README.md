@@ -99,6 +99,14 @@ basket.dispatchUpdateTotalAmount(this.$store, 0.5); // This accepts number (disc
 basket.commitAppendItem(this.$store, newItem); // This will give compilation error if you don't pass { product: Product; atTheEnd: boolean } in
 ```
 
+## Vuex version compatibility
+
+For Vuex 2.* use newest vuex-typescript 2.*
+For Vuex 3.* use newest vuex-typescript 3.*
+
+This library has explicit dependency on Vuex.
+A new version of vuex-typescript is released following each major release of Vuex. This way breaking API changes introduced into Vuex are guaranteed to be followed up and tested in vuex-typescript. 
+
 ## Functions or objects
 
 This lib is deliberately designed with functions rather than classes. This does not stop you from grouping accessors into objects. 

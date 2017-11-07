@@ -1,8 +1,9 @@
 import { expect } from "chai";
-import * as Vue from "vue";
 import * as Vuex from "vuex";
 import { createStore, State } from "./store";
 import * as api from "./store";
+
+const Vue = require("vue");
 
 describe("Given store without modules exposing mutations", () => {
     let store: Vuex.Store<State>;
