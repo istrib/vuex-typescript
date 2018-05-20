@@ -1,8 +1,8 @@
-# Vuex-Typescript [![Build Status](https://travis-ci.org/istrib/vuex-typescript.svg?branch=master)](https://travis-ci.org/istrib/vuex-typescript) [![Coverage Status](https://coveralls.io/repos/github/istrib/vuex-typescript/badge.svg?branch=master)](https://coveralls.io/github/istrib/vuex-typescript?branch=master) [![npm version](https://badge.fury.io/js/vuex-typescript.svg)](https://badge.fury.io/js/vuex-typescript)
+# Vuex-TypeScript [![Build Status](https://travis-ci.org/istrib/vuex-typescript.svg?branch=master)](https://travis-ci.org/istrib/vuex-typescript) [![Coverage Status](https://coveralls.io/repos/github/istrib/vuex-typescript/badge.svg?branch=master)](https://coveralls.io/github/istrib/vuex-typescript?branch=master) [![npm version](https://badge.fury.io/js/vuex-typescript.svg)](https://badge.fury.io/js/vuex-typescript)
 
 [https://github.com/istrib/vuex-typescript/](https://github.com/istrib/vuex-typescript/)
 
-A simple way to get static typing, static code analysis and intellisense with Vuex library.
+A simple way to get static typing, static code analysis, and intellisense with [Vuex](https://github.com/vuejs/vuex/) library.
 
 
 ![](doc/Intellisense.png)
@@ -12,11 +12,11 @@ We get full end-to-end compile-time safety and code navigability:
 * No action/mutation/getter misuse by providing wrong payload type
 * Intellisense giving unambiguous hints on what type of payload or getter arguments is expected
 * Refactoring made easy
-* Supports vuex with and without modules (though use of modules and namespaces seems to produce better structured code).
+* Supports Vuex with and without modules (though use of modules and namespaces seems to produce better structured code).
 
 ## The idea
 
-This library does not change the way how vuex handlers are defined (in particular it does not make you 
+This library does not change the way how Vuex handlers are defined (in particular it does not make you 
 use classes (though it does not stop you, either).
 
 The library changes the way how you *call* the store, once you have its instance: you **don’t use store’s 
@@ -120,7 +120,7 @@ decorator exported from this library as shown in [this test](https://github.com/
 
 ## More
 
-https://github.com/mrcrowl/vuex-typex also uses higher-order functions but takes a few steps more: there the store is implicitly built while defining accessors for each handler (in contrast here we create store with standard Vuex options and then wrap handlers into accessors). It is also not required to pass $store as argument to accessors. Definitely worth checking out.
+[Vuex-Typex](https://github.com/mrcrowl/vuex-typex) also uses higher-order functions but takes a few steps more: there the store is implicitly built while defining accessors for each handler (in contrast here we create store with standard Vuex options and then wrap handlers into accessors). It is also not required to pass $store as argument to accessors. Definitely worth checking out.
 
 ## Contributing
 
