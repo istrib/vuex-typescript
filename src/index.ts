@@ -10,7 +10,7 @@ export function Handler(target: any, key: string) {
  * Vuex getter handler specified in Vuex options.
  */
 export type GetterHandler<TModuleState, TRootState, TResult> =
-    (state: TModuleState, rootState: TRootState) => TResult;
+    (state: TModuleState, getters: any, rootState: TRootState) => TResult;
 
 /**
  * Vuex action handler which takes payload as specified in Vuex options.
